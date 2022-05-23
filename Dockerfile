@@ -16,7 +16,8 @@ RUN sha256sum /lib/libwasmvm_muslc.a | grep d16a2cab22c75dbe8af32265b9346c626607
 RUN BUILD_TAGS=muslc make build
 
 ## Deploy image
-FROM gcr.io/distroless/base-debian11:${BASE_IMG_TAG}
+FROM ubuntu
+RUN apt-get update && apt-get install -y jq moreutils
 
 COPY --from=build /osmosis/build/osmosisd /bin/osmosisd
 
